@@ -7,7 +7,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "socbat"
+name = "batsoc"
 authors = [
     {name = "Matti Eiden", email = "snaipperi@gmail.com"},
 ]

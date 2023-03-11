@@ -1,12 +1,12 @@
-# socbat - State of Charge (Battery)
+# batsoc - State of Charge (Battery)
 
 Got a cell voltage and would like to know how much charge is left? 
-Socbat to the rescue!
+batsoc to the rescue!
 
 ## Installation
 
 ```bash
-pip install socbat
+pip install batsoc
 ```
 
 ## Accuracy
@@ -18,7 +18,7 @@ the state of charge: temperature and load affect matters as well.
 ## Usage
 
 ```python
-from socbat import soc, BatteryType
+from batsoc import soc, BatteryType
 soc(BatteryType.ALKALINE, 1.3)
 ```
 
