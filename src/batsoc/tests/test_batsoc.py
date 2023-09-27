@@ -1,5 +1,4 @@
-from batsoc import BatteryType, soc
-from batsoc.batsoc import voltage
+from batsoc import BatteryType, soc, voltage
 
 
 def test_batsoc():
