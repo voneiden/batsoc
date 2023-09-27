@@ -25,6 +25,12 @@ class BatteryType(Enum):
     The curve is based on a moderate constant load of 750 µA.
     """
 
+    NICD = 4
+    """
+    Ni-Cd battery. Values based on ChatGPT's lies. Nominal voltage 1.2 V,
+    charge voltage up to 1.45 V
+    """
+
 
 _SRC_PATH = Path(__file__).parent
 
