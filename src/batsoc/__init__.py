@@ -1,1 +1,1 @@
-from .batsoc import soc, BatteryType  # noqa
+from .batsoc import BatteryType, soc  # noqa

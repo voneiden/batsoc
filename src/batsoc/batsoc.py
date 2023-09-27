@@ -7,12 +7,12 @@ from scipy.interpolate import interp1d
 
 class BatteryType(Enum):
     ALKALINE = 1
-    """ 
+    """
     Generic 1.5V non-rechargeable alkaline battery
     """
 
     LI_ION = 2
-    """ 
+    """
     Generic lithium ion battery with a nominal 3.7/3.8 voltage 
     and 4.2 charge voltage 
     """
@@ -42,10 +42,14 @@ def _load_curve(battery_type: BatteryType):
         return tuple(tuple((float(line[0]), float(line[1]))) for line in reader)
 
 
-_CURVE = {
-    battery_type: interp1d(*zip(*_load_curve(battery_type)))
-    for battery_type in BatteryType
-}
+_CURVE = {}
+_INVERSE_CURVE = {}
+
+for battery_type in BatteryType:
+    curve = _load_curve(battery_type)
+    inverse_curve = tuple((y, x) for x, y in curve)
+    _CURVE[battery_type] = interp1d(*zip(*curve))
+    _INVERSE_CURVE[battery_type] = interp1d(*zip(*inverse_curve))
 
 
 def soc(battery_type: BatteryType, cell_voltage) -> float:
@@ -55,3 +59,12 @@ def soc(battery_type: BatteryType, cell_voltage) -> float:
     cell_voltage = max(min(cell_voltage, curve_max_voltage), curve_min_voltage)
 
     return float(_CURVE[battery_type](cell_voltage))
+
+
+def voltage(battery_type: BatteryType, soc) -> float:
+    curve_min_soc = min(_INVERSE_CURVE[battery_type].x)
+    curve_max_soc = max(_INVERSE_CURVE[battery_type].x)
+
+    soc = max(min(soc, curve_max_soc), curve_min_soc)
+
+    return float(_INVERSE_CURVE[battery_type](soc))

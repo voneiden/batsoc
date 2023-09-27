@@ -14,9 +14,11 @@ jobs:
         with:
           python-version: 3.11
           cache: 'pip'
+      - name: Install dev-requirements
+        run: pip install -r requirements-dev.txt
       - name: Test
-        run: python -m unittest
-      - name: Install dependencies
+        run: python -m pytest
+      - name: Install build dependencies
         run: pip install -U setuptools wheel build
       - name: Build
         run: python -m build .
